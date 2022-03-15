@@ -20,9 +20,13 @@ from PIL import Image
 from shutil import copyfile
 
 parser = argparse.ArgumentParser()
-parser.add_argument('--output_folder', type=str, default="../Market/pytorch/off-gan_id1/", help="output image path")
-parser.add_argument('--output_folder2', type=str, default="../Market/pytorch/off-gan_bg1/", help="output image path")
-parser.add_argument('--input_folder', type=str, default="../Market/pytorch/train_all/", help="input image path")
+# parser.add_argument('--output_folder', type=str, default="../Market/pytorch/off-gan_id1/", help="output image path")
+# parser.add_argument('--output_folder2', type=str, default="../Market/pytorch/off-gan_bg1/", help="output image path")
+# parser.add_argument('--input_folder', type=str, default="../Market/pytorch/train_all/", help="input image path")
+# r'/home/ljl/Datasets/Market1501/Market-1501-v15.09.15/'
+parser.add_argument('--output_folder', type=str, default=r'/home/ljl/Datasets/Market1501/Market-1501-v15.09.15/pytorch/off-gan_id1/', help="output image path")
+parser.add_argument('--output_folder2', type=str, default=r'/home/ljl/Datasets/Market1501/Market-1501-v15.09.15/pytorch/off-gan_bg1/', help="output image path")
+parser.add_argument('--input_folder', type=str, default=r"/home/ljl/Datasets/Market1501/Market-1501-v15.09.15/pytorch/train_all/", help="input image path")
 
 parser.add_argument('--name', type=str, default="E0.5new_reid0.5_w30000", help="model name")
 parser.add_argument('--which_epoch', default=100000, type=int, help='iteration')
@@ -148,5 +152,4 @@ with torch.no_grad():
             else:
                 pass
 print('---- start fid evaluation ------')
-os.system('cd ../TTUR; python fid.py ../Market/pytorch/train_all ../Market/pytorch/off-gan_id1 --gpu 0')
-
+# os.system('cd /home/ljl/code_from_web/DG-Net/TTUR; python fid.py /home/ljl/Datasets/Market1501/Market-1501-v15.09.15/pytorch/train_all /home/ljl/Datasets/Market1501/Market-1501-v15.09.15/pytorch/off-gan_id1 --gpu 0')

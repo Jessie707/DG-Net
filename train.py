@@ -113,11 +113,11 @@ while True:
                 trainer.dis_update(x_ab.clone(), x_ba.clone(), images_a, images_b, config, num_gpu=1)
                 trainer.gen_update(x_ab, x_ba, s_a, s_b, f_a, f_b, p_a, p_b, pp_a, pp_b, x_a_recon, x_b_recon, x_a_recon_p, x_b_recon_p, images_a, images_b, pos_a, pos_b, labels_a, labels_b, config, iterations, num_gpu=1)
 
-            torch.cuda.synchronize()
+            torch.cuda.synchronize() # 同步统计pytorch调用cuda运行时间
 
-        # Dump training stats in log file
+        # Dump training stats in log file 将训练状态转存到log文件
         if (iterations + 1) % config['log_iter'] == 0:
-            print("\033[1m Epoch: %02d Iteration: %08d/%08d \033[0m" % (nepoch, iterations + 1, max_iter), end=" ")
+            print("\033[1m Epoch: %02d Iteration: %08d/%08d \033[0m" % (nepoch, iterations + 1, max_iter), end=" ") # ANSI控制码：\033[0m 关闭所有属性 \033[1m 设置高亮度
             if num_gpu==1:
                 write_loss(iterations, trainer, train_writer)
             else:

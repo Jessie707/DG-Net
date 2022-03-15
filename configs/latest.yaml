@@ -6,12 +6,15 @@ B_w: 0.2                         # The loss weight of fine-grained loss, which i
 ID_class: 751                    # The number of ID classes in the dataset. For example, 751 for Market, 702 for DukeMTMC
 ID_stride: 1                     # Stride in Appearance encoder
 ID_style: AB                     # For time being, we only support AB. In the future, we will support PCB.
-batch_size: 8                    # BatchSize
+# batch_size: 8                    # BatchSize
+batch_size: 4                    # BatchSize
 beta1: 0                         # Adam hyperparameter
 beta2: 0.999                     # Adam hyperparameter
 crop_image_height: 256           # Input height
 crop_image_width: 128            # Input width
-data_root: ../Market/pytorch/    # Dataset Root
+# data_root: ../Market/pytorch/    # Dataset Root
+# r'/home/ljl/Datasets/Market1501/Market-1501-v15.09.15/'
+data_root: /home/ljl/Datasets/Market1501/Market-1501-v15.09.15/pytorch/    # Dataset Root
 dis:              
   LAMBDA: 0.01                   # the hyperparameter for the regularization term
   activ: lrelu                   # activation function style [relu/lrelu/prelu/selu/tanh]

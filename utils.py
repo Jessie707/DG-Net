@@ -100,7 +100,7 @@ def get_data_loader_folder(input_folder, batch_size, train, new_size=None,
 
 def get_config(config):
     with open(config, 'r') as stream:
-        return yaml.load(stream)
+        return yaml.load(stream,Loader=yaml.FullLoader) # yaml5.1版本后更新函数参数
 
 
 def eformat(f, prec):
