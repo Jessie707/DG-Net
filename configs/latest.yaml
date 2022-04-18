@@ -3,18 +3,22 @@
 
 apex: false                      # Set True to use float16.
 B_w: 0.2                         # The loss weight of fine-grained loss, which is named as `alpha` in the paper.
+# ID_class: 751                    # The number of ID classes in the dataset. For example, 751 for Market, 702 for DukeMTMC
 ID_class: 751                    # The number of ID classes in the dataset. For example, 751 for Market, 702 for DukeMTMC
 ID_stride: 1                     # Stride in Appearance encoder
 ID_style: AB                     # For time being, we only support AB. In the future, we will support PCB.
 # batch_size: 8                    # BatchSize
-batch_size: 4                    # BatchSize
+batch_size: 2                    # Adam hyperparameter
 beta1: 0                         # Adam hyperparameter
 beta2: 0.999                     # Adam hyperparameter
 crop_image_height: 256           # Input height
 crop_image_width: 128            # Input width
 # data_root: ../Market/pytorch/    # Dataset Root
 # r'/home/ljl/Datasets/Market1501/Market-1501-v15.09.15/'
-data_root: /home/ljl/Datasets/Market1501/Market-1501-v15.09.15/pytorch/    # Dataset Root
+# r'/home/ljl/Datasets/Market1501/Market-1501-simplify/'
+# data_root: /home/ljl/Datasets/Market1501/Market-1501-v15.09.15/pytorch/    # Dataset Root
+data_root: /home/ljl/Datasets/Market1501/Market-1501-simplify/pytorch/    # Dataset Root
+
 dis:              
   LAMBDA: 0.01                   # the hyperparameter for the regularization term
   activ: lrelu                   # activation function style [relu/lrelu/prelu/selu/tanh]
@@ -46,8 +50,10 @@ gen:
   tanh: false                    # use tanh or not at the last layer
   init: kaiming                  # initialization [gaussian/kaiming/xavier/orthogonal]
 id_w: 1.0                        # the weight of ID loss
-image_display_iter: 5000         # How often do you want to display output images during training
-image_save_iter: 5000            # How often do you want to save output images during training
+# image_display_iter: 5000         # How often do you want to display output images during training
+# image_save_iter: 5000            # How often do you want to save output images during training
+image_display_iter: 50         # How often do you want to display output images during training
+image_save_iter: 50            # How often do you want to save output images during training
 input_dim_a: 1                   # We use the gray-scale input, so the input dim is 1
 input_dim_b: 1                   # We use the gray-scale input, so the input dim is 1
 log_iter: 1                      # How often do you want to log the training stats
@@ -56,7 +62,8 @@ lr_d: 0.0001                     # initial discriminator learning rate
 lr_g: 0.0001                     # initial generator (except appearance encoder) learning rate
 lr_policy: multistep             # learning rate scheduler [multistep|constant|step]
 max_cyc_w: 2                     # the maximum weight for cycle loss
-max_iter: 100000                 # When you end the training
+# max_iter: 100000                 # When you end the training
+max_iter: 100                 # When you end the training
 max_teacher_w: 2                 # the maximum weight for prime loss (teacher KL loss)
 max_w: 1                         # the maximum weight for feature reconstruction losses
 new_size: 128                    # the resized size  
@@ -71,7 +78,8 @@ recon_x_cyc_w: 0                 # the initial weight for cycle reconstruction
 recon_x_w: 5                     # the initial weight for self-reconstruction
 recon_xp_w: 5                    # the initial weight for self-identity reconstruction
 single: gray                     # make input to gray-scale
-snapshot_save_iter: 10000        # How often to save the checkpoint 
+# snapshot_save_iter: 10000        # How often to save the checkpoint 
+snapshot_save_iter: 10        # How often to save the checkpoint 
 sqrt: false                      # whether use square loss.
 step_size: 60000                 # when to decay the learning rate
 teacher: best                    # teacher model name. For DukeMTMC, you may set `best-duke`
@@ -81,7 +89,9 @@ train_bn: true                   # whether we train the bn for the generated ima
 use_decoder_again: true          # whether we train the decoder on the generatd image.
 use_encoder_again: 0.5           # the probability we train the structure encoder on the generatd image.
 vgg_w: 0                         # We do not use vgg as one kind of inception loss.
-warm_iter: 30000                 # when to start warm up the losses (fine-grained/feature reconstruction losses).
+# warm_iter: 30000                 # when to start warm up the losses (fine-grained/feature reconstruction losses).
+warm_iter: 30                 # when to start warm up the losses (fine-grained/feature reconstruction losses).
 warm_scale: 0.0005               # how fast to warm up
-warm_teacher_iter: 30000         # when to start warm up the prime loss
+# warm_teacher_iter: 30000         # when to start warm up the prime loss
+warm_teacher_iter: 30         # when to start warm up the prime loss
 weight_decay: 0.0005             # weight decay

@@ -92,14 +92,14 @@ def get_data_loader_folder(input_folder, batch_size, train, new_size=None,
     transform_list = [transforms.Pad(10, padding_mode='edge')] + transform_list if train else transform_list
     transform_list = [transforms.Resize((height,width), interpolation=3)] + transform_list if new_size is not None else transform_list
     transform_list = [transforms.RandomHorizontalFlip()] + transform_list if train else transform_list
-    transform = transforms.Compose(transform_list)
+    transform = transforms.Compose(transform_list) # 把多个步骤整合到一起
     dataset = ReIDFolder(input_folder, transform=transform)
     loader = DataLoader(dataset=dataset, batch_size=batch_size, shuffle=True, drop_last=True, num_workers=num_workers)
     return loader
 
 
 def get_config(config):
-    with open(config, 'r') as stream:
+    with open(config, 'r') as stream: # 这里的stream不是关键字，只是一个名字而已，叫什么都无所谓（一般写作f，即file之意），可改成任意非关键字名称
         return yaml.load(stream,Loader=yaml.FullLoader) # yaml5.1版本后更新函数参数
 
 

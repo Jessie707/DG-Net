@@ -6,10 +6,11 @@ Licensed under the CC BY-NC-SA 4.0 license (https://creativecommons.org/licenses
 import os
 from shutil import copyfile
 
-# You only need to change this line to your dataset download path
+# You only need to change this line to your dataset download path and simple num
 # download_path = '../Market'
-# download_path = r'/home/ljl/Datasets/Market1501/Market-1501-v15.09.15/'
+# data_root: /home/ljl/Datasets/Market1501/Market-1501-simplify/pytorch/    # Dataset Root
 download_path = r'/home/ljl/Datasets/Market1501/Market-1501-simplify/'
+simple_num = 100
 
 if not os.path.isdir(download_path):
     print('please change the download_path')
@@ -29,11 +30,12 @@ for root, dirs, files in os.walk(query_path, topdown=True):
         if not name[-3:]=='jpg':
             continue
         ID  = name.split('_')
-        src_path = query_path + '/' + name
-        dst_path = query_save_path + '/' + ID[0]   
-        if not os.path.isdir(dst_path):
-            os.mkdir(dst_path)
-        copyfile(src_path, dst_path + '/' + name) 
+        if int(ID[0]) <= simple_num:
+            src_path = query_path + '/' + name
+            dst_path = query_save_path + '/' + ID[0] 
+            if not os.path.isdir(dst_path):
+                os.mkdir(dst_path)
+            copyfile(src_path, dst_path + '/' + name)
 
 #-----------------------------------------
 #multi-query
@@ -49,11 +51,12 @@ if os.path.isdir(query_path):
             if not name[-3:]=='jpg':
                 continue
             ID  = name.split('_')
-            src_path = query_path + '/' + name
-            dst_path = query_save_path + '/' + ID[0]
-            if not os.path.isdir(dst_path):
-                os.mkdir(dst_path)
-            copyfile(src_path, dst_path + '/' + name)
+            if int(ID[0]) <= simple_num:
+                src_path = query_path + '/' + name
+                dst_path = query_save_path + '/' + ID[0]
+                if not os.path.isdir(dst_path):
+                    os.mkdir(dst_path)
+                copyfile(src_path, dst_path + '/' + name)
 
 #-----------------------------------------
 #gallery
@@ -67,11 +70,12 @@ for root, dirs, files in os.walk(gallery_path, topdown=True):
         if not name[-3:]=='jpg':
             continue
         ID  = name.split('_')
-        src_path = gallery_path + '/' + name
-        dst_path = gallery_save_path + '/' + ID[0]
-        if not os.path.isdir(dst_path):
-            os.mkdir(dst_path)
-        copyfile(src_path, dst_path + '/' + name)
+        if int(ID[0]) <= simple_num:
+            src_path = gallery_path + '/' + name
+            dst_path = gallery_save_path + '/' + ID[0]
+            if not os.path.isdir(dst_path):
+                os.mkdir(dst_path)
+            copyfile(src_path, dst_path + '/' + name)
 
 #---------------------------------------
 #train_all
@@ -85,11 +89,12 @@ for root, dirs, files in os.walk(train_path, topdown=True):
         if not name[-3:]=='jpg':
             continue
         ID  = name.split('_')
-        src_path = train_path + '/' + name
-        dst_path = train_save_path + '/' + ID[0]
-        if not os.path.isdir(dst_path):
-            os.mkdir(dst_path)
-        copyfile(src_path, dst_path + '/' + name)
+        if int(ID[0]) <= simple_num:
+            src_path = train_path + '/' + name
+            dst_path = train_save_path + '/' + ID[0]
+            if not os.path.isdir(dst_path):
+                os.mkdir(dst_path)
+            copyfile(src_path, dst_path + '/' + name)
 
 
 #---------------------------------------
@@ -106,10 +111,11 @@ for root, dirs, files in os.walk(train_path, topdown=True):
         if not name[-3:]=='jpg':
             continue
         ID  = name.split('_')
-        src_path = train_path + '/' + name
-        dst_path = train_save_path + '/' + ID[0]
-        if not os.path.isdir(dst_path):
-            os.mkdir(dst_path)
-            dst_path = val_save_path + '/' + ID[0]  #first image is used as val image
-            os.mkdir(dst_path)
-        copyfile(src_path, dst_path + '/' + name)
+        if int(ID[0]) <= simple_num:
+            src_path = train_path + '/' + name
+            dst_path = train_save_path + '/' + ID[0]
+            if not os.path.isdir(dst_path):
+                os.mkdir(dst_path)
+                dst_path = val_save_path + '/' + ID[0]  #first image is used as val image
+                os.mkdir(dst_path)
+            copyfile(src_path, dst_path + '/' + name)

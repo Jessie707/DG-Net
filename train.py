@@ -32,7 +32,7 @@ for str_id in str_ids:
     gpu_ids.append(int(str_id))
 num_gpu = len(gpu_ids)
 
-cudnn.benchmark = True
+cudnn.benchmark = True  # 让内置的cudnn的auto-tuner自动寻找最适合当前配置的高效算法，以优化运行效率，提升计算速度
 
 # Load experiment setting
 if opts.resume:
