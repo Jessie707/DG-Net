@@ -66,18 +66,19 @@ test_display_images_bp = torch.stack([test_loader_b.dataset[i][2] for i in test_
 
 # Setup logger and output folders
 if not opts.resume:
-    model_name = os.path.splitext(os.path.basename(opts.config))[0]
-    train_writer = tensorboardX.SummaryWriter(os.path.join(opts.output_path + "/logs", model_name))
-    output_directory = os.path.join(opts.output_path + "/outputs", model_name)
+    model_name = os.path.splitext(os.path.basename(opts.config))[0] # model_name = latest
+    train_writer = tensorboardX.SummaryWriter(os.path.join(opts.output_path + "/logs", model_name)) # log save path : './logs/latest'
+    output_directory = os.path.join(opts.output_path + "/outputs", model_name) # output path : './outputs/latest'
     checkpoint_directory, image_directory = prepare_sub_folder(output_directory)
     shutil.copyfile(opts.config, os.path.join(output_directory, 'config.yaml')) # copy config file to output folder
     shutil.copyfile('trainer.py', os.path.join(output_directory, 'trainer.py')) # copy file to output folder
     shutil.copyfile('reIDmodel.py', os.path.join(output_directory, 'reIDmodel.py')) # copy file to output folder
     shutil.copyfile('networks.py', os.path.join(output_directory, 'networks.py')) # copy file to output folder
 else:
-    train_writer = tensorboardX.SummaryWriter(os.path.join(opts.output_path + "/logs", opts.name))
-    output_directory = os.path.join(opts.output_path + "/outputs", opts.name)
+    train_writer = tensorboardX.SummaryWriter(os.path.join(opts.output_path + "/logs", opts.name)) # log save path : './logs/latest_ablation'
+    output_directory = os.path.join(opts.output_path + "/outputs", opts.name) # output path : './outputs/latest_avlation'
     checkpoint_directory, image_directory = prepare_sub_folder(output_directory)
+    
 # Start training
 iterations = trainer.resume(checkpoint_directory, hyperparameters=config) if opts.resume else 0
 config['epoch_iteration'] = round( train_loader_a.dataset.img_num  / config['batch_size'] )
@@ -113,7 +114,7 @@ while True:
                 trainer.dis_update(x_ab.clone(), x_ba.clone(), images_a, images_b, config, num_gpu=1)
                 trainer.gen_update(x_ab, x_ba, s_a, s_b, f_a, f_b, p_a, p_b, pp_a, pp_b, x_a_recon, x_b_recon, x_a_recon_p, x_b_recon_p, images_a, images_b, pos_a, pos_b, labels_a, labels_b, config, iterations, num_gpu=1)
 
-            torch.cuda.synchronize() # 同步统计pytorch调用cuda运行时间
+            torch.cuda.synchronize() # 同步统计pytorch调用cuda运行时间，等GPU操作完成再统计时间
 
         # Dump training stats in log file 将训练状态转存到log文件
         if (iterations + 1) % config['log_iter'] == 0:

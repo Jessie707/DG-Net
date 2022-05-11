@@ -169,8 +169,8 @@ def write_html(filename, iterations, image_save_iterations, image_directory, all
     html_file.write("</body></html>")
     html_file.close()
 
-
-def write_loss(iterations, trainer, train_writer):
+# 下2行的‘\’是 续行符（拆行）
+def write_loss(iterations, trainer, train_writer): 
     members = [attr for attr in dir(trainer) \
                if not callable(getattr(trainer, attr)) and not attr.startswith("__") and ('loss' in attr or 'grad' in attr or 'nwd' in attr)]
     for m in members:
